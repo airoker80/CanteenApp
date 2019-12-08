@@ -26,10 +26,13 @@ public class TokenHelper {
     @Value("${jwt.header}")
     private String AUTH_HEADER;
 
-    @Autowired
-    TimeProvider timeProvider;
+    private final TimeProvider timeProvider;
 
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
+
+    public TokenHelper(TimeProvider timeProvider) {
+        this.timeProvider = timeProvider;
+    }
 
     public String getUsernameFromToken(String token) {
         String username;

@@ -33,7 +33,7 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<OrderDao> getOrders(Principal principal, @Nullable @RequestParam Long start, @RequestParam @Nullable Long end) {
+    public List<OrderDao> getOrders(@Nullable @RequestParam Long start, @RequestParam @Nullable Long end) {
         if ((start != null) && (end != null)) {
             return  orderService.getOrdersByCreatedDate(start, end);
         }

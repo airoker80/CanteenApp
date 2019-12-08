@@ -3,10 +3,8 @@ package com.canteenapp.demo.controller;
 import com.canteenapp.demo.model.CanteenUser;
 import com.canteenapp.demo.model.UserTokenState;
 import com.canteenapp.demo.security.TokenHelper;
-import com.canteenapp.demo.service.CanteenUserDetailsService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,13 +24,10 @@ public class AuthController {
     @Lazy
     private final AuthenticationManager authenticationManager;
 
-    private final CanteenUserDetailsService userDetailsService;
-
     private final TokenHelper tokenHelper;
 
-    public AuthController(AuthenticationManager authenticationManager, CanteenUserDetailsService userDetailsService, TokenHelper tokenHelper) {
+    public AuthController(AuthenticationManager authenticationManager, TokenHelper tokenHelper) {
         this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
         this.tokenHelper = tokenHelper;
     }
 
