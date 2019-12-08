@@ -1,14 +1,10 @@
 package com.canteenapp.demo.controller;
 
-import com.canteenapp.demo.model.CanteenUser;
 import com.canteenapp.demo.model.Order;
-import com.canteenapp.demo.model.Order.Status;
 import com.canteenapp.demo.model.dao.FoodDao;
 import com.canteenapp.demo.model.dao.OrderDao;
-import com.canteenapp.demo.security.auth.TokenBasedAuthentication;
 import com.canteenapp.demo.service.OrderService;
 import com.mongodb.lang.Nullable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +17,11 @@ import java.util.Map;
 @RequestMapping(value = "/orders")
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public Map<String, Integer> addOrder(@RequestBody FoodDao foodDao, Principal principal) {

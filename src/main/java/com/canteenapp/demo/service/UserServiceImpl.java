@@ -6,7 +6,6 @@ import com.canteenapp.demo.model.UserRoleName;
 import com.canteenapp.demo.model.dao.CanteenUserDao;
 import com.canteenapp.demo.model.dao.UserDao;
 import com.canteenapp.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,7 +18,6 @@ import static com.canteenapp.demo.utils.ShortId.random62;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
-    @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
