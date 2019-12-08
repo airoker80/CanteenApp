@@ -4,7 +4,6 @@ import com.canteenapp.demo.common.TimeProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +25,13 @@ public class TokenHelper {
     @Value("${jwt.header}")
     private String AUTH_HEADER;
 
-    @Autowired
-    TimeProvider timeProvider;
+    private final TimeProvider timeProvider;
 
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
+
+    public TokenHelper(TimeProvider timeProvider) {
+        this.timeProvider = timeProvider;
+    }
 
     public String getUsernameFromToken(String token) {
         String username;
