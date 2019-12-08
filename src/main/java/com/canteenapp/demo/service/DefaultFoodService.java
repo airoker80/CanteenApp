@@ -36,6 +36,14 @@ public class DefaultFoodService implements FoodService {
     }
 
     @Override
+    public void update(FoodDao foodDao) {
+        Food food = foodRepository.findById(foodDao.getFoodId()).get();
+        food.setFoodName(foodDao.getFoodName());
+        food.setFoodPrice(foodDao.getFoodPrice());
+        foodRepository.save(food);
+    }
+
+    @Override
     public List<FoodDao> getFoods() {
         return convertToFoodDao(foodRepository.findAll());
     }

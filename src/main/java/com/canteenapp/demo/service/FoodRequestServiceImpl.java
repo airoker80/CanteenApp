@@ -24,6 +24,11 @@ public class FoodRequestServiceImpl implements FoodRequestService {
     }
 
     @Override
+    public void update(FoodRequest foodRequest) {
+        repository.save(foodRequest);
+    }
+
+    @Override
     public List<FoodRequestDao> getRequests() {
         return repository.findAll()
                 .stream()

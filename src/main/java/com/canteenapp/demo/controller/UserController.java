@@ -3,18 +3,12 @@ package com.canteenapp.demo.controller;
 import com.canteenapp.demo.model.dao.CanteenUserDao;
 import com.canteenapp.demo.model.dao.UserDao;
 import com.canteenapp.demo.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-
 
 @RestController
 @RequestMapping("/users")
@@ -31,14 +25,20 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<?> create(@RequestBody UserDao userDao) {
+    public ResponseEntity<HttpStatus> create(@RequestBody UserDao userDao) {
         userDao.setPassword(passwordEncoder.encode(userDao.getPassword()));
         userService.save(userDao);
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok(HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<CanteenUserDao> getAll() {
         return userService.getUsers();
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<String> delete(@RequestParam String username) {
+        userService.delete(username);
+        return ResponseEntity.ok("User deleted");
     }
 }

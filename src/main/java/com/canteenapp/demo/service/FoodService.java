@@ -14,7 +14,9 @@ public interface FoodService {
 
     void update(String foodId, boolean isForToday);
 
+    void update(FoodDao foodDao);
+
     List<FoodDao> getFoodsForToday();
 
-    void delete(String foodName);
+    void delete(String foodId);
 }
