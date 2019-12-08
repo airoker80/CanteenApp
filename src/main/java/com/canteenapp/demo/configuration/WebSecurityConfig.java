@@ -75,7 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/**",
                         "/swagger-resources/**"
                 ).permitAll()
-                .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/users", "/requests").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/foods").hasRole("ADMIN")
                 .antMatchers("/auth/**", "/users", "/spring-security-rest/api/**").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, jwtUserDetailsService), BasicAuthenticationFilter.class);
