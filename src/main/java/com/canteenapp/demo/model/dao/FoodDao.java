@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class FoodDao {
+    public String foodId;
+
     public String foodName;
 
     public int foodPrice;
-
-    public boolean isForToday;
 }

@@ -7,7 +7,7 @@ import java.security.Principal;
 import java.util.List;
 
 public interface OrderService {
-    void save(String foodId, Principal principal);
+    int save(String foodId, Principal principal);
 
     int save(List<String> food, Principal principal);
 

@@ -26,7 +26,7 @@ public class DefaultFoodService implements FoodService {
     @Override
     public FoodDao getFoodById(String id) {
         Food food = foodRepository.findById(id).get();
-        return new FoodDao(food.getFoodName(), food.getFoodPrice(), food.isForToday());
+        return new FoodDao(food.getFoodId(),food.getFoodName(), food.getFoodPrice());
     }
 
     public void update(String foodId, boolean isForToday) {
@@ -52,7 +52,7 @@ public class DefaultFoodService implements FoodService {
     private List<FoodDao> convertToFoodDao(List<Food>foods) {
         return  foods
                 .stream()
-                .map(foodDocument -> new FoodDao(foodDocument.getFoodName(), foodDocument.getFoodPrice(), foodDocument.isForToday()))
+                .map(foodDocument -> new FoodDao(foodDocument.getFoodId(),foodDocument.getFoodName(), foodDocument.getFoodPrice()))
                 .collect(Collectors.toList());
     }
 

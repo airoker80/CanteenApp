@@ -39,10 +39,10 @@ public class AppBootstrap
                             passwordEncoder.encode("p@ssW0rD"),
                             Collections.singletonList(new CanteenAuthority(UserRoleName.ROLE_ADMIN))));
 
-//        foodService.save(new FoodDao("Mo Mo ", 100));
-//        foodService.save(new FoodDao("Noodles ", 100));
-//        foodService.save(new FoodDao("Fried Rice ", 100));
-//        foodService.save(new FoodDao("Curry ", 100));
+            foodService.save(new FoodDao(ShortId.random62(), "Mo Mo ", 100));
+            foodService.save(new FoodDao(ShortId.random62(), "Noodles ", 100));
+            foodService.save(new FoodDao(ShortId.random62(), "Fried Rice ", 100));
+            foodService.save(new FoodDao(ShortId.random62(), "Curry ", 100));
         }
     }
 }

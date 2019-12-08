@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class OrderDao {
+    String orderId;
+
     String foodName;
 
     String employeeName;

@@ -27,10 +27,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void save(String foodId, Principal principal) {
+    public int save(String foodId, Principal principal) {
         FoodDao foodDao = foodService.getFoodById(foodId);
         CanteenUser canteenUser = (CanteenUser) ((TokenBasedAuthentication)principal).getPrincipal();
         orderRepository.save(new Order(ShortId.random62(7), foodDao.getFoodName(), canteenUser.getUsername(), Order.Status.PENDING, System.currentTimeMillis()));
+        return foodDao.getFoodPrice();
     }
 
     @Override
@@ -51,14 +52,14 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository
                 .findAll()
                 .stream()
-                .map(order -> new OrderDao(order.getFoodName(), order.getEmployeeName(), order.getStatus()))
+                .map(order -> new OrderDao(order.getOrderId(),order.getFoodName(), order.getEmployeeName(), order.getStatus()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<OrderDao> getOrdersByCreatedDate(long start, long end) {
         return orderRepository.getOrdersByCreatedOnBetween(start, end).stream()
-                .map(order -> new OrderDao(order.getFoodName(), order.getEmployeeName(), order.getStatus()))
+                .map(order -> new OrderDao(order.getOrderId(),order.getFoodName(), order.getEmployeeName(), order.getStatus()))
                 .collect(Collectors.toList());
     }
 
