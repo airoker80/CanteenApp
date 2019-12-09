@@ -1,8 +1,9 @@
-package com.canteenapp.demo.service;
+package com.canteenapp.demo.service.impl;
 
 import com.canteenapp.demo.model.FoodRequest;
 import com.canteenapp.demo.model.dao.FoodRequestDao;
 import com.canteenapp.demo.repository.FoodRequestRepository;
+import com.canteenapp.demo.service.FoodRequestService;
 import com.canteenapp.demo.utils.ShortId;
 import org.springframework.stereotype.Service;
 

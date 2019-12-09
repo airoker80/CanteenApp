@@ -1,4 +1,4 @@
-package com.canteenapp.demo.service;
+package com.canteenapp.demo.service.impl;
 
 import com.canteenapp.demo.model.CanteenUser;
 import com.canteenapp.demo.repository.UserRepository;

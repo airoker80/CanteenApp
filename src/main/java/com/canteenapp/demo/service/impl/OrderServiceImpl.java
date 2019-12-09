@@ -1,4 +1,4 @@
-package com.canteenapp.demo.service;
+package com.canteenapp.demo.service.impl;
 
 import com.canteenapp.demo.model.CanteenUser;
 import com.canteenapp.demo.model.Order;
@@ -6,6 +6,9 @@ import com.canteenapp.demo.model.dao.FoodDao;
 import com.canteenapp.demo.model.dao.OrderDao;
 import com.canteenapp.demo.repository.OrderRepository;
 import com.canteenapp.demo.security.auth.TokenBasedAuthentication;
+import com.canteenapp.demo.service.FoodService;
+import com.canteenapp.demo.service.OrderService;
+import com.canteenapp.demo.service.UserService;
 import com.canteenapp.demo.utils.ShortId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

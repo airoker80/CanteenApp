@@ -1,4 +1,4 @@
-package com.canteenapp.demo.service;
+package com.canteenapp.demo.service.impl;
 
 import com.canteenapp.demo.model.CanteenAuthority;
 import com.canteenapp.demo.model.CanteenUser;
@@ -6,6 +6,7 @@ import com.canteenapp.demo.model.UserRoleName;
 import com.canteenapp.demo.model.dao.CanteenUserDao;
 import com.canteenapp.demo.model.dao.UserDao;
 import com.canteenapp.demo.repository.UserRepository;
+import com.canteenapp.demo.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;

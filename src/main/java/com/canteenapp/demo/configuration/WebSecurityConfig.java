@@ -3,7 +3,7 @@ package com.canteenapp.demo.configuration;
 import com.canteenapp.demo.security.TokenHelper;
 import com.canteenapp.demo.security.auth.RestAuthenticationEntryPoint;
 import com.canteenapp.demo.security.auth.TokenAuthenticationFilter;
-import com.canteenapp.demo.service.CanteenUserDetailsService;
+import com.canteenapp.demo.service.impl.CanteenUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -61,14 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         HttpMethod.GET,
-                        "/",
-                        "/auth/**",
-                        "/webjars/**",
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
+                        "/auth/login",
                         "/swagger-ui.html",
                         "/v2/**",
                         "/swagger-resources/**"
@@ -84,22 +77,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         // TokenAuthenticationFilter will ignore the below paths
         web.ignoring().antMatchers(
                 HttpMethod.POST,
-                "/auth/login", "/users"
-        );
-        web.ignoring().antMatchers(
-                HttpMethod.GET,
-                "/",
-                "/webjars/**",
-                "/*.html",
-                "/favicon.ico",
-                "/**/*.html",
-                "/**/*.css",
-                "/**/*.js",
-                "/spring-security-rest/api/**"
+                "/auth/login"
         );
     }
 }
