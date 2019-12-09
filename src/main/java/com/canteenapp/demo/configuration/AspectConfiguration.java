@@ -14,7 +14,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Slf4j
 public class AspectConfiguration {
 
-
     @Before("execution(* com.canteenapp.demo.service.*.*(..))")
     public void logOperations(JoinPoint joinPoint) {
         log.info("Before executing {}", joinPoint.toString());

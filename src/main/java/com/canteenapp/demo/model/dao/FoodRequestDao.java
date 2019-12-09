@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class FoodRequestDao {
+    String uri;
+    
     String foodName;
 
     String requestedBy;

@@ -9,8 +9,6 @@ public interface UserRepository extends MongoRepository<CanteenUser, String> {
     @Override
     Optional<CanteenUser> findById(String s);
 
-    CanteenUser findCanteenUserByUsernameAndPassword(String username);
-
     CanteenUser findCanteenUserByUsername(String username);
 
 

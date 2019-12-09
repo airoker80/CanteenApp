@@ -20,7 +20,7 @@ public class FoodRequestServiceImpl implements FoodRequestService {
 
     @Override
     public void save(FoodRequestDao foodRequest) {
-        repository.save(new FoodRequest(ShortId.random62(7), foodRequest.getFoodName(), foodRequest.getRequestedBy()));
+        repository.save(new FoodRequest(foodRequest.getUri(), foodRequest.getFoodName(), foodRequest.getRequestedBy()));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class FoodRequestServiceImpl implements FoodRequestService {
     public List<FoodRequestDao> getRequests() {
         return repository.findAll()
                 .stream()
-                .map(foodRequest -> new FoodRequestDao(foodRequest.getFoodName(), foodRequest.getEmployName()))
+                .map(foodRequest -> new FoodRequestDao(foodRequest.getUri(),foodRequest.getFoodName(), foodRequest.getEmployName()))
                 .collect(Collectors.toList());
     }
 

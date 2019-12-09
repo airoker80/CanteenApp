@@ -1,6 +1,4 @@
 package com.canteenapp.demo.configuration;
-
-
 import com.canteenapp.demo.model.CanteenAuthority;
 import com.canteenapp.demo.model.CanteenUser;
 import com.canteenapp.demo.model.UserRoleName;

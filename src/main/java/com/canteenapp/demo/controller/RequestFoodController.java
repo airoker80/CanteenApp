@@ -5,6 +5,7 @@ import com.canteenapp.demo.model.FoodRequest;
 import com.canteenapp.demo.model.dao.FoodRequestDao;
 import com.canteenapp.demo.security.auth.TokenBasedAuthentication;
 import com.canteenapp.demo.service.FoodRequestService;
+import com.canteenapp.demo.utils.ShortId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class RequestFoodController {
     @RequestMapping(method = RequestMethod.POST)
     public void add(@RequestBody FoodRequestDao request, Principal principal) {
         CanteenUser canteenUser = (CanteenUser) ((TokenBasedAuthentication) principal).getPrincipal();
-        FoodRequestDao foodRequest = new FoodRequestDao(request.getFoodName(), canteenUser.getUsername());
+        FoodRequestDao foodRequest = new FoodRequestDao(ShortId.random62(),request.getFoodName(), canteenUser.getUsername());
         requestService.save(foodRequest);
     }
 
