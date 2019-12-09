@@ -16,4 +16,6 @@ public class FoodRequest {
     String foodName;
 
     String employName;
+
+    long time;
 }

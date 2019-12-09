@@ -4,7 +4,6 @@ import com.canteenapp.demo.security.TokenHelper;
 import com.canteenapp.demo.security.auth.RestAuthenticationEntryPoint;
 import com.canteenapp.demo.security.auth.TokenAuthenticationFilter;
 import com.canteenapp.demo.service.CanteenUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -49,7 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(jwtUserDetailsService)
                 .passwordEncoder(passwordEncoder());

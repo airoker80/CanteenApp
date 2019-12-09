@@ -21,11 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthController {
-    @Lazy
+
     private final AuthenticationManager authenticationManager;
 
     private final TokenHelper tokenHelper;
 
+    @Lazy
     public AuthController(AuthenticationManager authenticationManager, TokenHelper tokenHelper) {
         this.authenticationManager = authenticationManager;
         this.tokenHelper = tokenHelper;

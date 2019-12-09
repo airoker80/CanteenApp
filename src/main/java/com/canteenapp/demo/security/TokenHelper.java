@@ -1,6 +1,5 @@
 package com.canteenapp.demo.security;
 
-import com.canteenapp.demo.common.TimeProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,12 +24,9 @@ public class TokenHelper {
     @Value("${jwt.header}")
     private String AUTH_HEADER;
 
-    private final TimeProvider timeProvider;
-
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
-    public TokenHelper(TimeProvider timeProvider) {
-        this.timeProvider = timeProvider;
+    public TokenHelper() {
     }
 
     public String getUsernameFromToken(String token) {
@@ -68,7 +64,7 @@ public class TokenHelper {
 
     public String refreshToken(String token) {
         String refreshedToken;
-        Date a = timeProvider.now();
+        Date a = new Date();
         try {
             final Claims claims = this.getAllClaimsFromToken(token);
             claims.setIssuedAt(a);
@@ -87,7 +83,7 @@ public class TokenHelper {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
                 .setSubject(username)
-                .setIssuedAt(timeProvider.now())
+                .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
                 .signWith(SIGNATURE_ALGORITHM, SECRET)
                 .compact();
@@ -107,7 +103,7 @@ public class TokenHelper {
     }
 
     private Date generateExpirationDate() {
-        return new Date(timeProvider.now().getTime() + EXPIRES_IN * 1000);
+        return new Date(System.currentTimeMillis() + EXPIRES_IN * 1000);
     }
 
     public int getExpiredIn() {

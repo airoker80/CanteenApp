@@ -20,7 +20,7 @@ public class FoodRequestServiceImpl implements FoodRequestService {
 
     @Override
     public void save(FoodRequestDao foodRequest) {
-        repository.save(new FoodRequest(foodRequest.getUri(), foodRequest.getFoodName(), foodRequest.getRequestedBy()));
+        repository.save(new FoodRequest(foodRequest.getUri(), foodRequest.getFoodName(), foodRequest.getRequestedBy(), System.currentTimeMillis()));
     }
 
     @Override

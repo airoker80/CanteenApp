@@ -8,6 +8,7 @@ import com.canteenapp.demo.repository.OrderRepository;
 import com.canteenapp.demo.security.auth.TokenBasedAuthentication;
 import com.canteenapp.demo.utils.ShortId;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
@@ -30,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public int save(String foodId, Principal principal) {
         FoodDao foodDao = foodService.getFoodById(foodId);
         CanteenUser canteenUser = (CanteenUser) ((TokenBasedAuthentication)principal).getPrincipal();

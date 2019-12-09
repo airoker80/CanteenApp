@@ -1,5 +1,6 @@
 package com.canteenapp.demo.configuration;
 
+import com.canteenapp.demo.model.CanteenUser;
 import com.canteenapp.demo.model.Order;
 import com.canteenapp.demo.repository.OrderRepository;
 import com.canteenapp.demo.repository.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Configuration
 @EnableScheduling
@@ -25,15 +27,18 @@ public class SchedulerConfiguration {
     }
 
     /**
-     * Run every day at 12pm to check if all the users have ordered the lunch.
-     * If not order the lunch for them
+     * Run every day at 12pm (final order time) to check if all the users have ordered the lunch.
+     * If not the default lunch will be ordered for them
      */
     @Scheduled(cron = "0 24 * * * *")
     public void scheduleOrders() {
-        List<Order> orders = userRepository.findCanteenUsersByHasOrderedFalse()
+        Stream<CanteenUser> users = userRepository.findCanteenUsersByHasOrderedFalse()
+                .filter(canteenUser -> !canteenUser.getDefaultOrder().equals(""));
+        List<Order> orders = users
                 .map(canteenUser -> new Order(ShortId.random62(7), canteenUser.getDefaultOrder(), canteenUser.getUsername(), Order.Status.PENDING, System.currentTimeMillis()))
                 .collect(Collectors.toList());
-
+        List<CanteenUser> canteenUsers = users.peek(canteenUser -> canteenUser.setHasOrdered(true)).collect(Collectors.toList());
+        userRepository.saveAll(canteenUsers);
         orderRepository.saveAll(orders);
     }
 }

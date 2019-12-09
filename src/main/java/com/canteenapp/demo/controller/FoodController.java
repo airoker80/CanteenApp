@@ -29,16 +29,13 @@ public class FoodController {
         return foodService.getFoods();
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public void updateFood(@RequestBody FoodDao food) {
+    @RequestMapping(value = "/{isForToday}",method = RequestMethod.PUT)
+    public void updateFood(@RequestBody FoodDao food, @PathVariable Boolean isForToday) {
+        if (isForToday != null){
+            foodService.update(food.getFoodId(), isForToday);
+        }
         foodService.update(food);
         log.info("food {} updated", food);
-    }
-
-    @RequestMapping(method = RequestMethod.PUT)
-    public void updateFood(@RequestParam String foodId, @RequestParam boolean isForToday) {
-        foodService.update(foodId, isForToday);
-        log.info("food with id {} updated", foodId);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)

@@ -17,6 +17,8 @@ public class AspectConfiguration {
     @Before("execution(* com.canteenapp.demo.service.*.*(..))")
     public void logOperations(JoinPoint joinPoint) {
         log.info("Before executing {}", joinPoint.toString());
+        log.info("Arguments while calling {} are {}", joinPoint.getSignature().getName(), joinPoint.getArgs());
+
     }
 
     @AfterThrowing("execution(* com.canteenapp.demo.service.*.*(..))")
