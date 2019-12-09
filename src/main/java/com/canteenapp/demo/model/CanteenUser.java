@@ -1,5 +1,6 @@
 package com.canteenapp.demo.model;
 
+import com.canteenapp.demo.model.dao.OrderDao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -27,6 +28,10 @@ public class CanteenUser implements UserDetails {
     public String password;
 
     public List<CanteenAuthority> roles;
+
+    public String defaultOrder;
+
+    public boolean hasOrdered;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -9,6 +9,8 @@ import java.util.List;
 public interface UserService {
     void save(UserDao user);
 
+    void save(CanteenUser user);
+
     List<CanteenUserDao> getUsers();
 
     void delete(String username);

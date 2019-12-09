@@ -1,7 +1,6 @@
 package com.canteenapp.demo.service;
 
 import com.canteenapp.demo.model.CanteenUser;
-import com.canteenapp.demo.model.Food;
 import com.canteenapp.demo.model.Order;
 import com.canteenapp.demo.model.dao.FoodDao;
 import com.canteenapp.demo.model.dao.OrderDao;
@@ -19,10 +18,14 @@ import java.util.stream.Stream;
 public class OrderServiceImpl implements OrderService {
 
     private final FoodService foodService;
+
+    private final UserService userService;
+
     private final OrderRepository orderRepository;
 
-    public OrderServiceImpl(FoodService foodService, OrderRepository orderRepository) {
+    public OrderServiceImpl(FoodService foodService, UserService userService, OrderRepository orderRepository) {
         this.foodService = foodService;
+        this.userService = userService;
         this.orderRepository = orderRepository;
     }
 
@@ -31,6 +34,8 @@ public class OrderServiceImpl implements OrderService {
         FoodDao foodDao = foodService.getFoodById(foodId);
         CanteenUser canteenUser = (CanteenUser) ((TokenBasedAuthentication)principal).getPrincipal();
         orderRepository.save(new Order(ShortId.random62(7), foodDao.getFoodName(), canteenUser.getUsername(), Order.Status.PENDING, System.currentTimeMillis()));
+        canteenUser.setHasOrdered(true);
+        userService.save(canteenUser);
         return foodDao.getFoodPrice();
     }
 
@@ -44,6 +49,8 @@ public class OrderServiceImpl implements OrderService {
                 .map(foodDao -> new Order(ShortId.random62(7), foodDao.getFoodName(), canteenUser.getUsername(), Order.Status.PENDING, System.currentTimeMillis()))
                 .collect(Collectors.toList());
         orderRepository.saveAll(orders);
+        canteenUser.setHasOrdered(true);
+        userService.save(canteenUser);
         return foodDaoStream.mapToInt(FoodDao::getFoodPrice).sum();
     }
 

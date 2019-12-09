@@ -29,7 +29,14 @@ public class UserServiceImpl implements UserService {
                         random62(7),
                         user.getUsername(),
                         user.getPassword(),
-                        Collections.singletonList(new CanteenAuthority(UserRoleName.ROLE_FUSE_EMPLOYEE))));
+                        Collections.singletonList(new CanteenAuthority(UserRoleName.ROLE_FUSE_EMPLOYEE)),
+                        "",
+                        false));
+    }
+
+    @Override
+    public void save(CanteenUser user) {
+        userRepository.save(user);
     }
 
     public List<CanteenUserDao> getUsers() {

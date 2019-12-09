@@ -1,13 +1,16 @@
 package com.canteenapp.demo.controller;
 
+import com.canteenapp.demo.model.CanteenUser;
 import com.canteenapp.demo.model.dao.CanteenUserDao;
 import com.canteenapp.demo.model.dao.UserDao;
+import com.canteenapp.demo.security.auth.TokenBasedAuthentication;
 import com.canteenapp.demo.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -28,6 +31,14 @@ public class UserController {
     public ResponseEntity<HttpStatus> create(@RequestBody UserDao userDao) {
         userDao.setPassword(passwordEncoder.encode(userDao.getPassword()));
         userService.save(userDao);
+        return ResponseEntity.ok(HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<HttpStatus> update(@RequestParam String defaultFood, Principal principal) {
+        CanteenUser canteenUser = (CanteenUser) ((TokenBasedAuthentication) principal).getPrincipal();
+        canteenUser.setDefaultOrder(defaultFood);
+        userService.save(canteenUser);
         return ResponseEntity.ok(HttpStatus.ACCEPTED);
     }
 

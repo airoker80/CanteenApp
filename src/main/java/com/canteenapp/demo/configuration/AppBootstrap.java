@@ -35,7 +35,9 @@ public class AppBootstrap
                             ShortId.random62(),
                             "Admin",
                             passwordEncoder.encode("p@ssW0rD"),
-                            Collections.singletonList(new CanteenAuthority(UserRoleName.ROLE_ADMIN))));
+                            Collections.singletonList(new CanteenAuthority(UserRoleName.ROLE_ADMIN)),
+                            "",
+                            false));
 
             foodService.save(new FoodDao(ShortId.random62(), "Mo Mo ", 100));
             foodService.save(new FoodDao(ShortId.random62(), "Noodles ", 100));
