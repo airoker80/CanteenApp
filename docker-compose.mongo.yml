@@ -1,0 +1,15 @@
+version: '2'
+
+networks:
+  backend:
+
+services:
+  mongodb:
+    image: mongo:3.4
+    container_name: mongo
+    volumes:
+      - ./mongo/db:/data/db
+    #networks:
+    #  - backend
+    ports:
+      - "27017:27017"
