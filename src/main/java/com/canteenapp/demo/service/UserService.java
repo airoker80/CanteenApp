@@ -13,5 +13,7 @@ public interface UserService {
 
     List<CanteenUserDao> getUsers();
 
+    CanteenUser getUserByUsername(String username);
+
     void delete(String username);
 }

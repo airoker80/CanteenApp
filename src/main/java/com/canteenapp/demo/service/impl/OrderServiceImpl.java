@@ -47,16 +47,17 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public int save(List<String> foodIds, Principal principal) {
         CanteenUser canteenUser = (CanteenUser) ((TokenBasedAuthentication)principal).getPrincipal();
-        Stream<FoodDao> foodDaoStream = foodIds
+        List<FoodDao> foodDaoStream = foodIds
                 .stream()
-                .map(foodService::getFoodById);
-        List<Order> orders = foodDaoStream
+                .map(foodService::getFoodById)
+                .collect(Collectors.toList());
+        List<Order> orders = foodDaoStream.stream()
                 .map(foodDao -> new Order(ShortId.random62(7), foodDao.getFoodName(), canteenUser.getUsername(), Order.Status.PENDING, System.currentTimeMillis()))
                 .collect(Collectors.toList());
         orderRepository.saveAll(orders);
         canteenUser.setHasOrdered(true);
         userService.save(canteenUser);
-        return foodDaoStream.mapToInt(FoodDao::getFoodPrice).sum();
+        return foodDaoStream.stream().mapToInt(FoodDao::getFoodPrice).sum();
     }
 
     @Override

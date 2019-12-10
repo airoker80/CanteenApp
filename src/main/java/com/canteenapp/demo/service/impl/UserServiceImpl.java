@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public CanteenUser getUserByUsername(String username) {
+        return userRepository.findCanteenUserByUsername(username);
+    }
+
     public void delete(String username) {
         CanteenUser canteenUser = userRepository.findCanteenUserByUsername(username);
         userRepository.delete(canteenUser);
